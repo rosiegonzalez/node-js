@@ -51,6 +51,17 @@ app.get('/message', cors(corsOptions), async (req, res) => {
 
 // get make
 
+app.get('/car/:make', cors(corsOptions), async (req, res) => {
+
+    const make = req.params.make;
+    
+    let result = await con.query('SELECT * FROM car where make=?', [make])
+
+    console.log(result[0])
+
+    res.send(result[0])
+})
+
 
 
 app.listen(PORT, () => {
