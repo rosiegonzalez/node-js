@@ -76,22 +76,41 @@ app.use(express.urlencoded({extended: true}))
 //     res.send(result[0])
 // })
 
+// Put Car 
 
-app.put('/car/', cors(corsOptions), async (req, res) => {
+// app.put('/car/', cors(corsOptions), async (req, res) => {
     
-    const { make, model, color, price, carId } = req.body;
+//     const { make, model, color, price, carId } = req.body;
 
-    let result = await con.query(
-        'UPDATE car SET make = ?, model = ?, color = ?, price = ? WHERE car_id = ?',
-        [make, model, color, price, carId])
+//     let result = await con.query(
+//         'UPDATE car SET make = ?, model = ?, color = ?, price = ? WHERE car_id = ?',
+//         [make, model, color, price, carId])
 
         
-    res.send(result[0])
+//     res.send(result[0])
    
-     } )
+//      } )
 
 app.listen(PORT, () => {
 
     console.log(`Express web API running on port: ${PORT}.`)
 
 })
+
+// Delete Car 
+
+app.delete("/car/:id", cors(corsOptions), async (req, res) => {
+
+        const { id } =  req.params;
+
+        let result = await con.query('DELETE FROM car WHERE car_id=?', [id]);
+
+        
+    
+        console.log(result[0]);
+    
+        res.send(result[0]);
+    
+       
+    
+       })
