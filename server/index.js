@@ -64,20 +64,31 @@ app.use(express.urlencoded({extended: true}))
 
 // // post car 
 
-app.post('/car/', cors(corsOptions), async (req, res) => {
-    const { make, model, color, price } = req.body;
+// app.post('/car/', cors(corsOptions), async (req, res) => {
+//     const { make, model, color, price } = req.body;
+
+//     let result = await con.query(
+//         'INSERT INTO car (model, make, color, price) VALUES ("Corolla", "Toyota", "Gray", "30000")'
+       
+//     );
+
+//     console.log(result[0])
+//     res.send(result[0])
+// })
+
+
+app.put('/car/', cors(corsOptions), async (req, res) => {
+    
+    const { make, model, color, price, carId } = req.body;
 
     let result = await con.query(
-        'INSERT INTO car (model, make, color, price) VALUES ("Corolla", "Toyota", "Gray", "30000")'
-       
-    );
+        'UPDATE car SET make = ?, model = ?, color = ?, price = ? WHERE car_id = ?',
+        [make, model, color, price, carId])
 
-    console.log(result[0])
+        
     res.send(result[0])
-})
-
-
-
+   
+     } )
 
 app.listen(PORT, () => {
 
